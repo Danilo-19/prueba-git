@@ -1,0 +1,6 @@
+alumno_1
+Nombre: Danilo - Apellido: Mejia - DNI: 46789584 - Nacimiento: 19/04/2006 - Tutor: Mariana Berrios - Notas: 4, 6, 5, 7, 2 - Faltas: 11 - Amonestaciones: 5
+alumno_2
+Nombre: Julian - Apellido: Sardinas - DNI: 46791825 - Nacimiento: 03/06/2006 - Tutor: Silvina Belmonte - Notas: 1, 2, 4, 5, 9 - Faltas: 16 - Amonestaciones: 2
+alumno_3
+Nombre: Milagros - Apellido: Chaile - DNI: 46800318 - Nacimiento: 27/05/2006 - Tutor: Mariela Chaile - Notas: 7 - 4 - 5 - 6 - 7 - Faltas: 20 - Amonestaciones: 0
