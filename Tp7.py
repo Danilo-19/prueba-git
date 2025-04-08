@@ -68,12 +68,6 @@ mate1.cebar()
 mate1.beber()
 """
 
-
-
-
-
-
-
 # 3) Botella y Sacacorchos
 # - Escribir una clase Corcho, que contenga un atributo bodega (cadena con el nombre de la bodega).
 # - Escribir una clase Botella que contenga un atributo corcho con una referencia al corcho que la tapa, o None si está
@@ -153,7 +147,7 @@ class Restaurante():
 
 class Heladeria(Restaurante):
     def __init__(self, nombre, comida, sabores):
-        super().__init__( nombre, comida )
+        super().__init__(nombre, comida)
         self.lista_sabores = sabores
 
     def mostrar_saborares(self):
@@ -179,6 +173,7 @@ rosmari.mostrar_saborares()
 # devuelva la cantidad cosechada
 
 """
+import random
 class Personaje():
     def __init__(self, vida, posicion, velocidad):
         self.vida = vida
@@ -189,23 +184,63 @@ class Personaje():
         self.vida = self.vida - ataque
         if self.vida <= 0:
             print("MORISTE")
+        else:
+            print(f"Le dieron! ahora el soldado tiene {self.vida} de vida")
     
-    def mover(direccion, velocidad):
-        if direccion == "derecha":
-      """      
+    def mover(self, direccion):
+        if direccion == "adelante":
+            self.posicion[0] = self.posicion[0] + self.velocidad
+        elif direccion == "atras":
+            self.posicion[0] = self.posicion[0] - self.velocidad
+        elif direccion == "derecha":
+            self.posicion[1] = self.posicion[1] + self.velocidad
+        elif direccion == "izquierda":
+            self.posicion[1] = self.posicion[1] - self.velocidad
+        elif direccion == "arriba":
+            self.posicion[2] = self.posicion[2] + self.velocidad
+        elif direccion == "abajo":
+            self.posicion[2] = self.posicion[2] - self.velocidad
+    
+class Soldado(Personaje):
 
+    def __init__(self, vida, posicion, velocidad, ataque):
+        super().__init__(vida, posicion, velocidad)
+        self.ataque = ataque
+    
+    def atacar(self, victima):
+        victima.recibir_ataque(self.ataque)
+        print("Ha sufrido un ataque!")
+    
+class Campesino(Personaje):
 
+    def __init__(self, vida, posicion, velocidad, cosecha):
+        super().__init__(vida, posicion, velocidad)
+        self.cosecha = cosecha
+    
+    def cosechar(self):
+        cantidad_a_cosechar = random.randint(1,9)
+        if self.cosecha - cantidad_a_cosechar  >= 1:
+            self.cosecha = self.cosecha - cantidad_a_cosechar
+            return f"El campesino cosechó {cantidad_a_cosechar} puerros"
+        else:
+            return "Ya no hay más para cosechar"
 
+soldado_aleman = Soldado(100, [0, 3, 4], 4, 11)
+soldado_frances = Soldado(100, [5, 1, -2], 7, 13)
+campesino_hungaro = Campesino(100, [0, 0, 0], 10, 50)
 
-
-
+soldado_aleman.atacar(soldado_frances)
+soldado_frances.mover("arriba")
+cosechas = campesino_hungaro.cosechar()
+print(cosechas)
+"""
 
 # 6) Usuarios: Cree una clase Usuario. Cree también dos atributos nombre y apellido, así como otros atributos que típicamente
 # se guardan en un perfil de usuario. Escriba un método describir_usuario() que muestre un resumen de la información del
 # usuario. Escriba otro método saludar_usuario() que muestre un saludo personalizado al usuario.
 # Cree varias instancias que representen distintos usuarios y llame ambos métodos para cada uno.
 
-
+"""
 class Usuario():
 
     def __init__(self, nombre, apellido, mail, contraseña, usuario, telefono):
@@ -231,7 +266,7 @@ for i in range(n):
     apellido = input("Ingrese su apellido: ")
     mail = input("Ingrese su mail: ")
     contraseña = input("Ingrese su contraseña (shh): ")
-    usuario = input("Ingrese su nombre de usuario (nick name)")
+    usuario = input("Ingrese su nombre de usuario (nick name): ")
     telefono = input("Ingrese su número de teléfono: ")
     usuario = Usuario(nombre, apellido, mail, contraseña, usuario, telefono)
     lista.append(usuario)
@@ -239,17 +274,36 @@ for i in range(n):
 for i in range(len(lista)):
     lista[i].describir_usuario()
     lista[i].saludar_usuario()
+"""
 
 # 7) Admin: Un administrador es un tipo de usuario con privilegios especiales. Cree una clase Admin que herede de la clase
 # Usuario del ejercicio anterior y agréguele un atributo privilegios que almacene una lista de strings tales como “puede
 # postear en el foro”, “puede borrar un post”, “puede banear usuario”, etc. Escriba un método mostrar_privilegios() que
 # muestre el conjunto de privilegios del administrador, cree una instancia de la clase y llame al método.
 
+"""
+class Administrador(Usuario):
 
+    privilegios = ["Puede postear en el foro", "puede borrar un post", "puede banear usuario"]
+    
+    def __inti__(self, nombre, apellido, mail, contraseña, usuario, telefono):
+        super().__init__(nombre, apellido, mail, contraseña, usuario, telefono)
+        
+    
+    def mostrar_privilegios(self, usuario):
+        print(f"Felicidades {usuario} eres admin, estos son tus privilegios: ")
+        print(self.privilegios)
 
-
-
-
+print("Ingrese los datos del admin.")
+nombre = input("Ingrese su nombre: ")
+apellido = input("Ingrese su apellido: ")
+mail = input("Ingrese su mail: ")
+contraseña = input("Ingrese su contraseña (shh): ")
+usuario = input("Ingrese su nombre de usuario (nick name)")
+telefono = input("Ingrese su número de teléfono: ")
+admin1 = Administrador(nombre, apellido, mail, contraseña, usuario, telefono)
+admin1.mostrar_privilegios(usuario)
+"""
 
 
 # 8) Privilegios: Escriba una clase Privilegios. La clase debería tener un atributo, privilegios, que almacene una lista de strings
@@ -257,30 +311,56 @@ for i in range(len(lista)):
 # clase, y haga que una instancia de esta clase sea un atributo de la clase Admin. Cree una nueva instancia de Admin y use
 # el método para mostrar privilegios.
 
+"""
+class Privilegios():
+
+    privilegios = ["puede postear en el foro", "puede borrar un post", "puede banear usuario", "tiene posteos ilimitados", "puede borrar posteos"]
+
+    def mostrar_privilegios(self):
+        print(f"Felicidades eres admin, estos son tus privilegios: ")
+        print(self.privilegios)
+
+class Administrador(Usuario):
+
+    privilegios = Privilegios()
+    def __inti__(self, nombre, apellido, mail, contraseña, usuario, telefono):
+        super().__init__(nombre, apellido, mail, contraseña, usuario, telefono)
+    
+    def mostrar(self):
+        self.privilegios.mostrar_privilegios()
+    
+    
 
 
-
-
-
-
-
-
+print("Ingrese los datos del admin.")
+nombre = input("Ingrese su nombre: ")
+apellido = input("Ingrese su apellido: ")
+mail = input("Ingrese su mail: ")
+contraseña = input("Ingrese su contraseña (shh): ")
+usuario = input("Ingrese su nombre de usuario (nick name)")
+telefono = input("Ingrese su número de teléfono: ")
+admin1 = Administrador(nombre, apellido, mail, contraseña, usuario, telefono)
+admin1.mostrar()
+"""
 
 # 9) Restaurante importado: Escriba un programa que esté en otro archivo que la clase Restaurante del ejercicio 4,  e impórtela al módulo actual. 
 # Cree una instancia de Restaurante y llame a alguno de sus métodos para asegurarse que la importación funcionó.
 
-
-
-
-
+"""
+import paquete_restaurante
+mamma_mia = paquete_restaurante.Restaurante("Mamma Mia", "Pastas")
+mamma_mia.describir_restaurante()
+"""
 
 # 10) (Opcional): Repita el ejercicio anterior pero esta vez importando la clase Heladeria. 
-# ¿Qué se necesita para que funcione laimportación?
+# ¿Qué se necesita para que funcione la importación?
 
-
-
-
-
+"""
+import paquete_heladeria
+freddo = paquete_heladeria.Heladeria("Freddo","Helado",["furtilla","limon","durazno","naranja"])
+freddo.describir_restaurante()
+freddo.mostrar_saborares()
+"""
 
 
 
